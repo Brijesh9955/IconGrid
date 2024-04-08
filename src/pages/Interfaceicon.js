@@ -28,7 +28,7 @@ function Interfaceicon() {
   };
 
   const updateIcons = async (iconId) => {
-    await axios.put(`https://api-elbg.onrender.com/editIcon/update/${iconId}/000000/interface`)
+    await axios.put(`https://icongrid-backend.onrender.com/editIcon/update/${iconId}/000000/interface`)
       .then((res) => {
         console.log("update Icon color :- ", res.data.data);
         getInterfaceIcon();
@@ -49,7 +49,7 @@ function Interfaceicon() {
 
   }
   const getInterfaceIcon = () => {
-    axios.get('https://api-elbg.onrender.com/interface/find')
+    axios.get('https://icongrid-backend.onrender.com/interface/find')
       .then((res) => {
         let regularIcon = res.data.data.map(icon => (icon))
         console.log("regularIcon :- ", regularIcon);

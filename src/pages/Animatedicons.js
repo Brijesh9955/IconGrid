@@ -25,7 +25,7 @@ function Animatedicons() {
   };
 
   const updateIcons = async (iconId) => {
-    await axios.put(`https://api-elbg.onrender.com/editIcon/update/${iconId}/000000/animated`)
+    await axios.put(`https://icongrid-backend.onrender.com/editIcon/update/${iconId}/000000/animated`)
       .then((res) => {
         console.log("update Icon color :- ", res.data.data);
         getAnimatedIcon();
@@ -46,7 +46,7 @@ function Animatedicons() {
 
   }
   const getAnimatedIcon = () => {
-    axios.get('https://api-elbg.onrender.com/animated/find')
+    axios.get('https://icongrid-backend.onrender.com/animated/find')
       .then((res) => {
         console.log(res.data.data);
         setData(res.data.data)

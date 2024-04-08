@@ -77,7 +77,7 @@ export default function Pack() {
 
     const getIcons = (categoryName, popIcon, iconId) => {
         if (popIcon) {
-            axios.get(`https://api-elbg.onrender.com/popular/findOne/${categoryName}`)
+            axios.get(`https://icongrid-backend.onrender.com/popular/findOne/${categoryName}`)
                 .then(async(res) => {
                     console.log(res.data.data);
                     // if(iconId){
@@ -90,7 +90,7 @@ export default function Pack() {
                 });
             }
             else {
-                axios.get(`https://api-elbg.onrender.com/icon/findOne/${categoryName}`)
+                axios.get(`https://icongrid-backend.onrender.com/icon/findOne/${categoryName}`)
                 .then(async(res) => {
                     console.log(res.data.data);
                     // if(iconId){

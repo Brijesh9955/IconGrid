@@ -23,7 +23,7 @@ const Login = () => {
 
         let value = { email: email, password: password }
 
-        axios.post('https://api-elbg.onrender.com/admin/login', value)
+        axios.post('https://icongrid-backend.onrender.com/admin/login', value)
             .then((res) => {
                 console.log(res.data);
                 localStorage.setItem('token', res.data.token)

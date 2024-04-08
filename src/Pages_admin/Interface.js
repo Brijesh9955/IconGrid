@@ -11,7 +11,7 @@ const Interface = () => {
     const token = localStorage.getItem('token');
 
     const updateCountIcons = () => {
-        axios.put('https://api-elbg.onrender.com/count/update/66118721d874eac554e374dc', {}, {
+        axios.put('https://icongrid-backend.onrender.com/count/update/66118721d874eac554e374dc', {}, {
             headers: {
                 admintoken: token
             }
@@ -30,7 +30,7 @@ const Interface = () => {
     }, []);
 
     const getCategories = () => {
-        axios.get('https://api-elbg.onrender.com/category/find')
+        axios.get('https://icongrid-backend.onrender.com/category/find')
             .then((res) => {
                 setCategories(res.data.data);
                 getCategoryIcons(res.data.data);
@@ -41,7 +41,7 @@ const Interface = () => {
     };
 
     const fetchIcons = () => {
-        axios.get('https://api-elbg.onrender.com/interface/find')
+        axios.get('https://icongrid-backend.onrender.com/interface/find')
             .then((res) => {
                 setData(res.data.data);
                 updateCountIcons()
@@ -52,7 +52,7 @@ const Interface = () => {
     };
 
     const removeIcon = (id) => {
-        axios.delete(`https://api-elbg.onrender.com/interface/delete/${id}`, {
+        axios.delete(`https://icongrid-backend.onrender.com/interface/delete/${id}`, {
             headers: {
                 admintoken: token
             }
@@ -68,7 +68,7 @@ const Interface = () => {
 
     const getCategoryIcons = (categories) => {
         const iconPromises = categories.map(category => {
-            return axios.get(`https://api-elbg.onrender.com/interface/findOne/${category.name}`)
+            return axios.get(`https://icongrid-backend.onrender.com/interface/findOne/${category.name}`)
                 .then((res) => {
                     return { [category.name]: res.data.data };
                 })

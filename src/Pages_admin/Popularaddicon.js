@@ -52,7 +52,7 @@ function Popularaddicon({ fetchIcons, icon, targetFile }) {
     }, [icon]);
 
     const fetchSuggestedCategories = () => {
-        axios.get('https://api-elbg.onrender.com/popCategory/find')
+        axios.get('https://icongrid-backend.onrender.com/popCategory/find')
             .then((res) => {
                 const categories = res.data.data.map(category => ({ label: category.name, id: category._id }));
                 setSuggestedCategories(categories);
@@ -78,14 +78,14 @@ function Popularaddicon({ fetchIcons, icon, targetFile }) {
         try {
             let response;
             if (icon) {
-                response = await axios.put(`https://api-elbg.onrender.com/popular/update/${icon._id}`, formData, {
+                response = await axios.put(`https://icongrid-backend.onrender.com/popular/update/${icon._id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         admintoken: token
                     }
                 });
             } else {
-                response = await axios.post(`https://api-elbg.onrender.com/popular/create`, formData, {
+                response = await axios.post(`https://icongrid-backend.onrender.com/popular/create`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         admintoken: token

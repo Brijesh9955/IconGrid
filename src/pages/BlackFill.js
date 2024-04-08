@@ -23,7 +23,7 @@ function BlackFill() {
       }
 
     const getCategory = () => {
-        axios.get(`https://api-elbg.onrender.com/popCategory/findOne/${cardName}`)
+        axios.get(`https://icongrid-backend.onrender.com/popCategory/findOne/${cardName}`)
             .then((res) => {
                 console.log(res.data.data);
                 setCategory(res.data.data)

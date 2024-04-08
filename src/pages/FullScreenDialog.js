@@ -49,7 +49,7 @@ export default function FullScreenDialog({ open, onClose, iconId, entityType }) 
   }, [iconId]);
 
   const getIcon = (iconId, color) => {
-    axios.get(`https://api-elbg.onrender.com/${entityType}/findById/${iconId}`)
+    axios.get(`https://icongrid-backend.onrender.com/${entityType}/findById/${iconId}`)
       .then((res) => {
         console.log("Demo :- ", res.data.data);
         setIconName(res.data.data.name)
@@ -301,7 +301,7 @@ export default function FullScreenDialog({ open, onClose, iconId, entityType }) 
   };
 
   const save = (data) => {
-    axios.post(`https://api-elbg.onrender.com/save/create`, { save: data._id })
+    axios.post(`https://icongrid-backend.onrender.com/save/create`, { save: data._id })
       .then((res) => {
         console.log("save Dataaaaaaa :- ", res.data.data);
       })

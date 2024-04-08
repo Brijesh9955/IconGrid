@@ -51,7 +51,7 @@ function Icons() {
 
   }
   const getCategory = () => {
-    axios.get('https://api-elbg.onrender.com/category/find')
+    axios.get('https://icongrid-backend.onrender.com/category/find')
       .then((res) => {
         console.log(res.data.data);
         setCategory(res.data.data)

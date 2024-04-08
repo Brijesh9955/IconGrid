@@ -73,7 +73,7 @@ function Navbar() {
     }, []);
 
     const getSaveIcons = () => {
-        axios.get(`https://api-elbg.onrender.com/save/find`)
+        axios.get(`https://icongrid-backend.onrender.com/save/find`)
             .then((res) => {
                 const ids = res.data.data.map((el) => el.save);
                 const sId = res.data.data.map((el) => el._id);
@@ -82,7 +82,7 @@ function Navbar() {
                 setSaveId(sId);
 
                 let entitype = ["icon", "animated", "interface", "popular"]
-                Promise.all(ids.map(id => Promise.all(entitype.map(type => axios.get(`https://api-elbg.onrender.com/${type}/findById/${id}`)))))
+                Promise.all(ids.map(id => Promise.all(entitype.map(type => axios.get(`https://icongrid-backend.onrender.com/${type}/findById/${id}`)))))
                     .then(responses => {
                         const saveIconsData = responses.flat().map(response => response.data.data);
                         setSaveIcons(saveIconsData);
@@ -107,7 +107,7 @@ function Navbar() {
         const idToRemove = saveId[index];
         console.log("id ID :- ", saveId);
         console.log("id ID Index :- ", index);
-        axios.delete(`https://api-elbg.onrender.com/save/delete/${idToRemove}`)
+        axios.delete(`https://icongrid-backend.onrender.com/save/delete/${idToRemove}`)
             .then((res) => {
                 console.log("Save Icon Delete Successfully :- ", res.data.data);
                 const updatedSaveIcons = saveIcons.filter((_, i) => i !== index);

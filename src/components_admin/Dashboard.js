@@ -29,7 +29,7 @@ const Dashboard = () => {
     }, []);
 
     const getCountIcon = () => {
-        axios.get('https://api-elbg.onrender.com/count/find')
+        axios.get('https://icongrid-backend.onrender.com/count/find')
             .then((res) => {
                 console.log("Count :- ",res.data.data);
                 setData(res.data.data);
