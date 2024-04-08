@@ -43,16 +43,17 @@ function Footer() {
         <Container maxWidth="lg">
           <Grid container>
             <Grid container item xs={12} md={9} sx={{ display: { xs: 'none', sm: 'flex' }, color: '#fff', justifyContent: 'space-around' }}>
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} sm={3} className='color-272727'>
                 <Box sx={{ fontSize: '24px', fontWeight: '600' }}>
                   Content
                 </Box>
                 <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                   {pages.map((page, i) => (
                     <Button
+
                       key={i}
                       onClick={() => handlePageClick(page.path)}
-                      sx={{ my: 1, color: 'white', display: 'flex', justifyContent: 'flex-start', textTransform: 'capitalize', padding: '0' }}
+                      sx={{ my: 1, color: '#fff', display: 'flex', justifyContent: 'flex-start', textTransform: 'capitalize', padding: '0' }}
                     >
                       {page.name}
                     </Button>
@@ -172,7 +173,7 @@ function Footer() {
               <Box sx={{ width: '100%', fontSize: '24px', fontWeight: '600', display: 'flex', justifyContent: 'center' }}>Socials</Box>
               <Box sx={{ fontSize: '35px', display: 'flex', justifyContent: 'space-around', paddingTop: '10px' }}>
                 <FaFacebook />
-                <a href="https://www.instagram.com/icongrid_/?next=%2F">
+                <a target='_blank' href="https://www.instagram.com/icongrid_/?next=%2F">
                 <FaInstagram  color='#fff'/>
                 </a>
                 <FaTwitter />

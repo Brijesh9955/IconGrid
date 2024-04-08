@@ -137,53 +137,6 @@ const corner = [
         page: 'straight',
     },
 ];
-const category = [
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Alert',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Indian brands',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Cars',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Institute',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Business',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Food',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Animal',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Design',
-    },
-    {
-        path: '',
-        icon: <FaBuffer />,
-        page: 'Art',
-    },
-];
 
 const StyledPaper = styled('div')({
     position: 'absolute',
@@ -209,6 +162,7 @@ const Searchicons = () => {
     const [entityType, setEntityType] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [search, setSearch] = useState('');
+    const [category, setCategory] = useState([]);
     const [suggestions, setSuggestions] = useState([]);
     const theme = useTheme();
     const history = useHistory();
@@ -217,12 +171,12 @@ const Searchicons = () => {
     const suggestionsRef = useRef(null);
 
     useEffect(() => {
+        console.log("De,dfds");
+        getCategory()
         Gotoup()
     }, [])
     const Gotoup = () => {
-
         window.scrollTo({ top: 0, left: 0, behavior: "auto" })
-
     }
 
     const handleOpenDialog = (iconId, entityName) => {
@@ -260,7 +214,6 @@ const Searchicons = () => {
         }
         getSearchIcons(inputValue);
     };
-
 
     useEffect(() => {
         if (location.state) {
@@ -328,7 +281,7 @@ const Searchicons = () => {
         if (searchValue) {
             setLoading(true);
             axios
-                .get(`https://icongrid-backend.onrender.com/tag/findByName/${searchValue}`)
+                .get(`https://api-elbg.onrender.com/tag/findByName/${searchValue}`)
                 .then((res) => {
                     const { animated, icon, interfaceData, popularIcon } = res.data.data;
                     let concatenatedArray = [];
@@ -364,7 +317,7 @@ const Searchicons = () => {
     const getSuggestTagName = (searchValue) => {
         if (searchValue) {
             axios
-                .get(`https://icongrid-backend.onrender.com/tag/find`)
+                .get(`https://api-elbg.onrender.com/tag/find`)
                 .then((res) => {
                     const { animated, icon, interfaceData, popularIcon } = res.data.data;
                     const concatenatedArray = animated.concat(icon, interfaceData, popularIcon);
@@ -386,6 +339,17 @@ const Searchicons = () => {
         }
     };
 
+    const getCategory = () => {
+        axios.get('https://api-elbg.onrender.com/category/find')
+            .then((res) => {
+                console.log("Demoooo :- ", res.data.data);
+                setCategory(res.data.data)
+            })
+            .catch((error) => {
+                console.log(error.response.data);
+            })
+    }
+
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -400,16 +364,16 @@ const Searchicons = () => {
                         edge="start"
                         sx={{
                             margin: 0,
-                            padding: '15px 14px',
+                            padding: '8px 20px',
                             ...(open && { display: 'none' }),
                         }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <IconButton sx={{ display: open ? 'block' : 'none', padding: '15px 14px' }} onClick={() => setOpen(false)}>
+                    <IconButton sx={{ display: open ? 'block' : 'none', padding: '8px 20px' }} onClick={() => setOpen(false)}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
-                    <ListItem sx={{ padding: '15px 14px' }}>
+                    <ListItem sx={{ padding: '8px 20px' }}>
                         <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
                             <BsGem />
                         </ListItemIcon>
@@ -444,7 +408,7 @@ const Searchicons = () => {
                 </List>
                 <Divider />
                 <List>
-                    <ListItem sx={{ padding: '15px 14px' }}>
+                    <ListItem sx={{ padding: '8px 20px' }}>
                         <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
                             <BsGem />
                         </ListItemIcon>
@@ -476,35 +440,37 @@ const Searchicons = () => {
                 </List>
                 <Divider />
                 <List>
-                    <ListItem sx={{ padding: '15px 14px' }}>
+                    <ListItem sx={{ padding: '8px 20px' }}>
                         <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
                             <BsGem />
                         </ListItemIcon>
                         <Typography sx={{ color: '#fff', textTransform: 'uppercase', fontSize: '18px', opacity: open ? 1 : 0 }}>Category</Typography>
                     </ListItem>
-
-                    {category.map((component) => (
-                        <ListItem key={component.page} disablePadding onClick={() => history.push(component.path)}>
-                            <ListItemButton
-                                sx={{
-                                    minHeight: 48,
-                                    justifyContent: open ? 'initial' : 'center',
-                                    px: 2.5,
-                                }}
-                            >
-                                <ListItemIcon
+                    {console.log("category sgdghfcg :- ", category)}
+                    {category.map((component, index) => (
+                        (index <= 10) ? (
+                            <ListItem key={index} disablePadding onClick={() => history.push(component.path)}>
+                                <ListItemButton
                                     sx={{
-                                        minWidth: 0,
-                                        mr: open ? 3 : 'auto',
-                                        fontSize: '20px',
-                                        justifyContent: 'center',
+                                        minHeight: 48,
+                                        justifyContent: open ? 'initial' : 'center',
+                                        px: 2.5,
                                     }}
                                 >
-                                    {component.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={component.page} sx={{ opacity: open ? 1 : 0 }} />
-                            </ListItemButton>
-                        </ListItem>
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            mr: open ? 3 : 'auto',
+                                            fontSize: '20px',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <FaBuffer />
+                                    </ListItemIcon>
+                                    <ListItemText primary={component.name} sx={{ opacity: open ? 1 : 0 }} />
+                                </ListItemButton>
+                            </ListItem>
+                        ) : ('Demo')
                     ))}
                 </List>
             </Drawer>
@@ -512,11 +478,12 @@ const Searchicons = () => {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
 
                 <div>
+                   
                     <form className="search-bar" onSubmit={handleSearchSubmit}>
                         <TextField
                             select
                             label="Icon Type"
-                            sx={{ width: '200px' }}
+                            sx={{ width: '200px'}}
                             variant="outlined"
                             size="small"
                             value={iconType}
@@ -593,7 +560,7 @@ const Searchicons = () => {
                                         </>
                                     ) : (
                                         <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-                                            <h1>Sorry, we couldn’t find any matches for <span style={{ color: '#ffbc06' }}>{search}</span> icons</h1>
+                                            <Box sx={{fontSize:{xs:'22px',md:'32px' , textAlign:'center' , fontWeight:'600'}}}>Sorry, we couldn’t find any matches for <span style={{ color: '#ffbc06' }}>{search}</span> icons</Box>
                                         </Grid>
                                     )}
                                 </Grid>

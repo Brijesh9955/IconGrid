@@ -40,10 +40,10 @@ function Contact() {
                                         Chat to team
                                     </Box>
                                     <Box fontSize={'15px'} color={'#888888'}>
-                                        Speack to our Friendly team
+                                        Chat to our Friendly team 
                                     </Box>
                                     <Box sx={{ marginBottom: '15px', paddingTop: '20px', fontWeight: '600', fontSize: '15px', borderBottom: '2px solid', display: 'inline-block' }}>
-                                        vivekvaghasiya133@gmail.com
+                                        icongrid@gmail.com
                                     </Box>
                                 </Grid>
                                 <Grid md={4} lg={3} xs={12} sx={{ margin: '20px 10px', padding: '20px 20px', border: '1px solid #dcdcdc', borderRadius: '7px' }}>
@@ -54,10 +54,10 @@ function Contact() {
                                         We're here to help.
                                     </Box>
                                     <Box fontSize={'15px'} color={'#888888'}>
-                                        Speack to our Friendly team
+                                        Speak to our Friendly team
                                     </Box>
                                     <Box sx={{ marginBottom: '15px', paddingTop: '20px', fontWeight: '600', fontSize: '15px', borderBottom: '2px solid', display: 'inline-block' }}>
-                                        vivekvaghasiya133@gmail.com
+                                    icongrid@gmail.com
                                     </Box>
                                 </Grid>
                                 <Grid md={4} lg={3} xs={12} sx={{ margin: '20px 10px', padding: '20px 20px', border: '1px solid #dcdcdc', borderRadius: '7px' }}>
@@ -71,7 +71,7 @@ function Contact() {
                                         Mon-Fri from 8am to 5pm.
                                     </Box>
                                     <Box sx={{ marginBottom: '15px', paddingTop: '20px', fontWeight: '600', fontSize: '15px', borderBottom: '2px solid', display: 'inline-block' }}>
-                                        +91(800)013 3106
+                                        +91 800013 3106
                                         
                                     </Box>
                                 </Grid>

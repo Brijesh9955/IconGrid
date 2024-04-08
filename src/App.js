@@ -23,7 +23,7 @@ import Animatedicon from './Pages_admin/Animatedicon';
 import Category from './Pages_admin/Category';
 import Interface from './Pages_admin/Interface';
 import UserLayout from './components/UserLayout';
-
+import { Analytics } from "@vercel/analytics/react"
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,6 +32,7 @@ import {
 import PopularIcon from './Pages_admin/PopularIcon';
 import PopularCategory from './Pages_admin/PopularCategory';
 import Searchicons from './pages/Searchicons';
+import UserLayoutWithout from './components/UserLayoutWithout';
 
 function App() {
   return (
@@ -65,17 +66,17 @@ function App() {
 
           </Route>
           <Route path="/most-downloads">
-            <UserLayout>
+            <UserLayoutWithout>
               <Topicon />
-            </UserLayout>
+            </UserLayoutWithout>
           </Route>
 
           {/* Search */}
 
           <Route path="/search-icon">
-            <UserLayout>
+            <UserLayoutWithout>
               <Searchicons />
-            </UserLayout>
+            </UserLayoutWithout>
           </Route>
 
           <Route path="/pack">
@@ -163,6 +164,7 @@ function App() {
         </Switch>
 
       </Router>
+      <Analytics />
     </div>
   );
 }

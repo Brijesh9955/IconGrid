@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -31,6 +31,7 @@ import Stack from '@mui/material/Stack';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Collapse from '@mui/material/Collapse';
+import favicon from '../components/img/logo.png'
 
 import { BsMenuButtonWide, BsJournalText, BsReverseLayoutTextWindowReverse, BsBarChart, BsGem, BsPerson, BsQuestionCircle, BsEnvelope, BsCardList, BsBoxArrowInRight, BsDashCircle, BsGrid, BsExclamationCircle, BsXCircle } from "react-icons/bs";
 
@@ -103,22 +104,22 @@ const Mainbody = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   let history = useHistory();
-const [token, setToken] = useState('')
+  const [token, setToken] = useState('')
 
-useEffect(() => {
-  let token = localStorage.getItem("token")
-  if(!token){
-    return history.push("/login")
+  useEffect(() => {
+    let token = localStorage.getItem("token")
+    if (!token) {
+      return history.push("/login")
+    }
+    setToken(token)
+  }, [])
+
+  const LogOut = () => {
+    localStorage.removeItem('token')
+    history.push('/login')
   }
-  setToken(token)
-}, [])
 
-const LogOut = () => {
-  localStorage.removeItem('token')
-  history.push('/login')
-  }
 
-  
   // console.log("history", history)
 
 
@@ -231,16 +232,10 @@ const LogOut = () => {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem onClick={(event) => {
-        event.stopPropagation();
 
-        handleMenuClose();
-      }} >
 
-      </MenuItem>
-
-      <MenuItem onClick={LogOut}>
-        <ListItemIcon>
+      <MenuItem onClick={LogOut} color='#fff'>
+        <ListItemIcon >
           <Logout fontSize="small" />
         </ListItemIcon>
         Logout
@@ -357,42 +352,37 @@ const LogOut = () => {
   const isLG = useMediaQuery(theme.breakpoints.up('lg'));
 
 
-  if(!token){
-    return <p>Loading...</p>
+  if (!token) {
+    return <span class="loader"></span>
   }
 
   return (
     <>
 
 
-      <Box sx={{ flexGrow: 1, position: "sticky", top: 0 }} zIndex={1030}>
+      <Box sx={{ flexGrow: 1, position: "sticky", top: 0 , backgroundColor:'#272727'}} zIndex={1030}>
         <ThemeProvider theme={darkTheme}>
-          <AppBar position="static"  >
-            <Toolbar >
-
-              <Stack spacing={1} direction="row" alignItems="center" sx={{ width: "20%" }}>
-
+          <AppBar position="static" sx={{ backgroundColor:'#272727' , color:'#fff'}}>
+            <Toolbar>
+              <Stack spacing={1} direction="row" alignItems="center" sx={{ width: { xs: "50%", md: "20%" } }}>
                 <Typography
                   variant="h6"
                   noWrap
-                  component="a"
-                  href="#app-bar-with-responsive-menu"
-
                   sx={{
                     mr: 2,
-                    display: { xs: 'none', md: 'flex' },
-                    fontFamily: '"Nunito", sans-serif',
-                    fontSize: "24px",
-                    color: "#012970",
+                    fontFamily: 'monospace',
+                    fontWeight: 700,
+                    letterSpacing: '.3rem',
+                    color: '#fff',
                     textDecoration: 'none',
+                    display: 'contents'
                   }}
                 >
-                  Icon Grid
+                  <a className='center-logo' href=""><span style={{ letterSpacing: 'initial', fontSize: '28px', color: '#fff', fontWeight: '600' }}>Ic</span><img width={'25px'} src={favicon} alt="" srcset="" /><span style={{ marginLeft: "1px", fontSize: '28px', letterSpacing: 'initial', color: '#fff', fontWeight: '600' }}>nGrid</span></a>
+
+
                 </Typography>
-
               </Stack>
-
-
               <IconButton
                 size="large"
                 edge="start"
@@ -400,26 +390,11 @@ const LogOut = () => {
                 aria-label="open drawer"
                 sx={{ mx: { md: "15px", xs: "5px" } }}
                 onClick={handleDrawer}
-
-
               >
                 <MenuIcon sx={{ fontSize: 30 }} />
               </IconButton>
-
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                  sx={{ border: 1, borderColor: 'grey.400', borderRadius: 1 }}
-                />
-              </Search>
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
-
                 <IconButton
                   size="large"
                   edge="end"
@@ -432,7 +407,7 @@ const LogOut = () => {
                 >
                   <Tooltip title="Account settings">
                     <Stack direction="row">
-                      <Avatar alt="Profile" src="https://bootstrapmade.com/demo/templates/NiceAdmin/assets/img/profile-img.jpg"></Avatar>
+                      <Avatar alt="Profile" src={favicon}></Avatar>
                       <Button
                         size='small'
                         variant="contained"
@@ -442,9 +417,8 @@ const LogOut = () => {
                         sx={{ textTransform: 'capitalize', fontSize: "16px", paddingRight: "0px" }}
                         className='profileBTN'
                       >
-                        K. Anderson
+                        icongrid
                       </Button>
-
                     </Stack>
                   </Tooltip>
                 </IconButton>
@@ -452,21 +426,22 @@ const LogOut = () => {
               <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
                   aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
+                  onClick={handleProfileMenuOpen}
                   color="inherit"
+                  disableRipple
                 >
                   <MoreIcon />
                 </IconButton>
               </Box>
             </Toolbar>
           </AppBar>
-
-
         </ThemeProvider>
       </Box>
+
 
 
       <Box sx={{ display: 'flex', justifyContent: 'end' }}>
@@ -505,7 +480,9 @@ const LogOut = () => {
                     textDecoration: 'none',
                   }}
                 >
-                  Icon Grid
+                  <a className='center-logo' href=""><span style={{ letterSpacing: 'initial', fontSize: '28px', color: '#fff', fontWeight: '600' }}>Ic</span><img width={'25px'} src={favicon} alt="" srcset="" /><span style={{ marginLeft: "1px", fontSize: '28px', letterSpacing: 'initial', color: '#fff', fontWeight: '600' }}>nGrid</span></a>
+
+
                 </Typography>
 
               </Stack>
@@ -542,7 +519,7 @@ const LogOut = () => {
               </ListItem>
               <Collapse in={expand[1]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding dense>
-                  {Components.map((component,index) => (
+                  {Components.map((component, index) => (
                     <ListItem key={index} disablePadding onClick={() => { history.push(component.path) }}>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemIcon sx={{ minWidth: "20px", marginLeft: "30px" }}>
@@ -564,34 +541,34 @@ const LogOut = () => {
               </ListItem>
             </List>
             <ListItem sx={{ padding: "0px 20px" }}>
-                <ListItemButton onClick={() => setExpand1({ ...expand1, 1: !expand1[1] })}>
-                  <ListItemIcon sx={{ minWidth: "30px" }}>
-                    <BsGem />
-                  </ListItemIcon>
-                  <ListItemText primary="Popular Icon" />
-                  {expand1[1] ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-              </ListItem>
-              <Collapse in={expand1[1]} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding dense>
-                  {Components1.map((component,index) => (
-                    <ListItem key={index} disablePadding onClick={() => { history.push(component.path) }}>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemIcon sx={{ minWidth: "20px", marginLeft: "30px" }}>
-                          <CircleIcon sx={{ fontSize: "9px" }} />
-                        </ListItemIcon>
-                        <ListItemText primary={component.page} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
-              </Collapse>
+              <ListItemButton onClick={() => setExpand1({ ...expand1, 1: !expand1[1] })}>
+                <ListItemIcon sx={{ minWidth: "30px" }}>
+                  <BsGem />
+                </ListItemIcon>
+                <ListItemText primary="Popular Icon" />
+                {expand1[1] ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+            </ListItem>
+            <Collapse in={expand1[1]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding dense>
+                {Components1.map((component, index) => (
+                  <ListItem key={index} disablePadding onClick={() => { history.push(component.path) }}>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon sx={{ minWidth: "20px", marginLeft: "30px" }}>
+                        <CircleIcon sx={{ fontSize: "9px" }} />
+                      </ListItemIcon>
+                      <ListItemText primary={component.page} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </Collapse>
             <List subheader={
               <ListSubheader component="div">
                 PAGES
               </ListSubheader>
             }>
-              {Pages.map((PageEle,index) => (
+              {Pages.map((PageEle, index) => (
                 <ListItem key={index} sx={{ padding: "0px 20px" }}>
                   <ListItemButton onClick={() => { history.push(PageEle.path) }}>
                     <ListItemIcon sx={{ minWidth: "30px" }}>
@@ -607,7 +584,7 @@ const LogOut = () => {
 
         </Drawer>
         <Main open={open} sx={{ maxWidth: "100%", backgroundColor: "#f6f9ff" }}>
-                {props.children}
+          {props.children}
         </Main>
         {renderMenu}
       </Box>

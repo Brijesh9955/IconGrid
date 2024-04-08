@@ -4,6 +4,7 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, TableCo
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios';
 import Dailodbox from './Dailodbox';
+import { AiOutlineDelete } from "react-icons/ai";
 
 const Icon = () => {
     const [categories, setCategories] = useState([]);
@@ -12,7 +13,7 @@ const Icon = () => {
     const token = localStorage.getItem('token');
 
     const updateCountIcons = () => {
-        axios.put('https://icongrid-backend.onrender.com/count/update/65e41862f553d71c874fabc5', {}, {
+        axios.put('https://api-elbg.onrender.com/count/update/66118721d874eac554e374dc', {}, {
             headers: {
                 admintoken: token
             }
@@ -30,7 +31,7 @@ const Icon = () => {
     }, []);
 
     const getCategories = () => {
-        axios.get('https://icongrid-backend.onrender.com/category/find')
+        axios.get('https://api-elbg.onrender.com/category/find')
             .then((res) => {
                 setCategories(res.data.data);
                 getCategoryIcons(res.data.data);
@@ -41,7 +42,7 @@ const Icon = () => {
     };
 
     const fetchIcons = () => {
-        axios.get('https://icongrid-backend.onrender.com/icon/find')
+        axios.get('https://api-elbg.onrender.com/icon/find')
             .then((res) => {
                 setIconData(res.data.data);
                 updateCountIcons()
@@ -52,7 +53,7 @@ const Icon = () => {
     };
 
     const removeIcon = (id) => {
-        axios.delete(`https://icongrid-backend.onrender.com/icon/delete/${id}`, {
+        axios.delete(`https://api-elbg.onrender.com/icon/delete/${id}`, {
             headers: { admintoken: token }
         })
             .then((res) => {
@@ -66,7 +67,7 @@ const Icon = () => {
 
     const getCategoryIcons = (categories) => {
         const iconPromises = categories.map(category => {
-            return axios.get(`https://icongrid-backend.onrender.com/icon/findOne/${category.name}`)
+            return axios.get(`https://api-elbg.onrender.com/icon/findOne/${category.name}`)
                 .then((res) => {
                     console.log([category.name]);
                     return { [category.name]: res.data.data };
@@ -121,7 +122,7 @@ const Icon = () => {
                                             <TableRow key={iconIndex}>
                                                 <TableCell>{icon.name}</TableCell>
                                                 <TableCell align="right">
-                                                    <Button onClick={() => removeIcon(icon._id)}>Delete</Button>
+                                                    <Button onClick={() => removeIcon(icon._id)}><AiOutlineDelete color='#fff' fontSize={'25px'}/></Button>
                                                     <Dailodbox fetchIcons={getCategories} icon={icon} targetFile="icon" />
                                                 </TableCell>
                                             </TableRow>

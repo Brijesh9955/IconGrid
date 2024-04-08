@@ -4,6 +4,7 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 import Addcategory from './Addcategory';
 import axios from 'axios';
 import PopularDailog from './PopularDailog';
+import { AiOutlineDelete } from "react-icons/ai";
 
 function PopularCategory() {    
     const [data, setData] = useState([]);
@@ -11,7 +12,7 @@ function PopularCategory() {
     const token = localStorage.getItem('token');
 
     const updateCountIcons = () => {
-        axios.put('https://icongrid-backend.onrender.com/count/update/65e41862f553d71c874fabc5',{},{
+        axios.put('https://api-elbg.onrender.com/count/update/66118721d874eac554e374dc',{},{
             headers: {
                 admintoken: token
             }
@@ -29,7 +30,7 @@ function PopularCategory() {
     }, []);
 
     const getCategory = () => {
-        axios.get('https://icongrid-backend.onrender.com/popCategory/find')
+        axios.get('https://api-elbg.onrender.com/popCategory/find')
             .then((res) => {
                 console.log(res.data.data);
                 setData(res.data.data);
@@ -42,7 +43,7 @@ function PopularCategory() {
 
 
     const remove = (id) => {
-        axios.delete(`https://icongrid-backend.onrender.com/popCategory/delete/${id}`,{
+        axios.delete(`https://api-elbg.onrender.com/popCategory/delete/${id}`,{
             headers: {
                 admintoken: token
             }
@@ -88,7 +89,7 @@ function PopularCategory() {
                                 </TableCell>
                                 <TableCell align="right" sx={{ display: 'flex' }}>
                                     <PopularDailog addCategory={getCategory} icon={row} />
-                                    <Box sx={{ marginLeft: '5px' }}><Button onClick={() => remove(row._id)}>Delete</Button></Box>
+                                    <Box sx={{ marginLeft: '5px' }}><Button onClick={() => remove(row._id)}><AiOutlineDelete color='#fff' fontSize={'25px'}/></Button></Box>
                                 </TableCell>
                             </TableRow>
                         ))}

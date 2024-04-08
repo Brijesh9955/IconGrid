@@ -25,7 +25,7 @@ function Animatedicons() {
   };
 
   const updateIcons = async (iconId) => {
-    await axios.put(`https://icongrid-backend.onrender.com/editIcon/update/${iconId}/000000/animated`)
+    await axios.put(`https://api-elbg.onrender.com/editIcon/update/${iconId}/000000/animated`)
       .then((res) => {
         console.log("update Icon color :- ", res.data.data);
         getAnimatedIcon();
@@ -46,7 +46,7 @@ function Animatedicons() {
 
   }
   const getAnimatedIcon = () => {
-    axios.get('https://icongrid-backend.onrender.com/animated/find')
+    axios.get('https://api-elbg.onrender.com/animated/find')
       .then((res) => {
         console.log(res.data.data);
         setData(res.data.data)
@@ -70,11 +70,13 @@ function Animatedicons() {
               <Box sx={{ fontSize: { xs: '8px', sm: '14px', md: '18px' }, width: '63%', margin: 'auto', color: '#fff', padding: { md: '10px 0px 0px 0px' } }}>
                 IconGrid offers a robust collection of meticulously designed animated icons, ready for seamless integration into your digital products, presentations, or videos!
               </Box>
+              <Link to="/Topanimatedicon">
               <Box sx={{ padding: { xs: '9px 0px 0px 0px', md: '30px 0px 50px 20px' } }}>
                 <Box sx={{ fontSize: { xs: '10px', md: '16px' }, border: '1px solid #FFBC06', backgroundColor: '#FFBC06', borderRadius: '10px', padding: '10px 15px', display: 'inline-block' }}>
-                  See Trending Icon
+                  See All Icon
                 </Box>
               </Box>
+              </Link>
               <Box sx={{ position: 'absolute', bottom: -8 }} >
 
               </Box>

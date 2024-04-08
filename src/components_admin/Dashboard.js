@@ -29,9 +29,9 @@ const Dashboard = () => {
     }, []);
 
     const getCountIcon = () => {
-        axios.get('https://icongrid-backend.onrender.com/count/find')
+        axios.get('https://api-elbg.onrender.com/count/find')
             .then((res) => {
-                console.log(res.data.data);
+                console.log("Count :- ",res.data.data);
                 setData(res.data.data);
             })
             .catch((error) => {
@@ -165,7 +165,7 @@ const Dashboard = () => {
                                         </Box>
                                         <Box>
                                             <Typography variant="h5" gutterBottom marginBottom="0px" fontSize="28px" fontWeight="600">
-                                                {el.category}
+                                                {el.totalCat}
                                             </Typography>
 
                                         </Box>

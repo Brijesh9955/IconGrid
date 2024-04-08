@@ -26,7 +26,7 @@ function Dailogicon({ refreshCategories, icon }) {
     }, [icon]);
 
     const fetchSuggestedCategories = () => {
-        axios.get('https://icongrid-backend.onrender.com/category/find')
+        axios.get('https://api-elbg.onrender.com/category/find')
             .then((res) => {
                 const categories = res.data.data.map(category => ({ label: category.name, id: category._id }));
                 setSuggestedCategories(categories);
@@ -63,14 +63,14 @@ function Dailogicon({ refreshCategories, icon }) {
         try {
             let response;
             if (icon) {
-                response = await axios.put(`https://icongrid-backend.onrender.com/icon/update/${icon._id}`, formData, {
+                response = await axios.put(`https://api-elbg.onrender.com/icon/update/${icon._id}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         admintoken: token
                     }
                 });
             } else {
-                response = await axios.post('https://icongrid-backend.onrender.com/icon/create', formData, {
+                response = await axios.post('https://api-elbg.onrender.com/icon/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         admintoken: token
@@ -91,7 +91,7 @@ function Dailogicon({ refreshCategories, icon }) {
     return (
         <React.Fragment>
             {icon ? (
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button variant="outlined" sx={{color:'#fff'}} onClick={handleClickOpen}>
                     Update
                 </Button>
             ) : (

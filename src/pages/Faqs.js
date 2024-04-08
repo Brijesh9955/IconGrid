@@ -69,7 +69,7 @@ function Faqs() {
                                     Find the Answers You Need
                                 </Box>
                                 <Box sx={{ fontSize: { xs: '12px', sm: '16px' }, color: '#888888' }}>
-                                    Discover solutions to your queries and maximize your Font Awesome experience through our comprehensive documentation, step-by-step guides, and troubleshooting insights.
+                                    Discover solutions to your queries and maximize your IconGrid experience through our comprehensive documentation, step-by-step guides, and troubleshooting insights.
                                 </Box>
                             </Grid>
                             <Grid md={6} xs={12} className='center' sx={{ alignItems: 'center' }}>
@@ -89,40 +89,37 @@ function Faqs() {
             <Box sx={{ width: '80%', margin: 'auto', marginBottom: '30px' }}>
                 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                     <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>Collapsible Group Item #1</Typography>
+                        <Typography>Where and how can I upload my own icons?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            The latest feature in our Kits offering is Icon Upload, allowing users to seamlessly integrate their own SVG icons into their chosen kits. This feature not only enhances customization but also boosts performance, making Kits the optimal choice for leveraging IconGrid on the web. With Icon Upload, users can simply upload their desired icons into their selected kit and immediately incorporate them alongside IconGrid's extensive library.
+
+                            Although currently tailored for web applications, we envision Kits evolving into a pivotal component for a broader range of functionalities in the future. Stay tuned for updates as we continue to expand the capabilities of Kits to meet the evolving needs of our users.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                     <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>Collapsible Group Item #2</Typography>
+                        <Typography>What formats is IconGrid available in?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            IconGrid Free are available to you in two formats:
+
+                            as an SVG, also called better format
+                            as PNG
+                            Downloads of either format are available for both IconGrid Free and IconGrid Pro (if you have a perpetual license). To make them easier to use on the web, we have created frameworks for each. And we have lots of documentation on how to use them on the web and on the desktop.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                     <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                        <Typography>Collapsible Group Item #3</Typography>
+                        <Typography>What are Pageviews?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                            sit amet blandit leo lobortis eget.
+                            Pageviews serve as our primary metric for gauging the utilization of our Kits service, which efficiently hosts and delivers icons for your projects. By default, there are no limitations placed on the domains that can access your Kit. However, for enhanced security and control, we provide the option to "whitelist" specific domains. This feature empowers you to selectively restrict access to your Kit, ensuring it is only utilized by approved websites.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

@@ -30,6 +30,9 @@ import { MdOutlineCancel } from "react-icons/md";
 import { IoMdImages, IoIosShareAlt, IoIosDownload, IoIosArrowDown, IoLogoFacebook, IoLogoTwitter, IoLogoInstagram, IoLogoPlaystation, IoLogoWhatsapp } from "react-icons/io";
 import { useEffect } from 'react';
 import axios from 'axios';
+import JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -61,44 +64,61 @@ function Navbar() {
     const [hoveredItem, setHoveredItem] = useState(null);
     const [saveIcons, setSaveIcons] = useState([]);
     const [saveId, setSaveId] = useState([]);
+    const [nonNullIndices, setNonNullIndices] = useState([]);
 
     const history = useHistory();
 
     useEffect(() => {
-        axios.get(`https://icongrid-backend.onrender.com/save/find`)
+        getSaveIcons()
+    }, []);
+
+    const getSaveIcons = () => {
+        axios.get(`https://api-elbg.onrender.com/save/find`)
             .then((res) => {
                 const ids = res.data.data.map((el) => el.save);
                 const sId = res.data.data.map((el) => el._id);
+                console.log("ids :- ", res.data.data.map((el) => el));
+                console.log("sId :- ", sId);
                 setSaveId(sId);
-                ids.forEach(id => getSaveIcons(id,sId));
-            })
-            .catch((error) => {
-                console.log(error.response.data);
-            });
-    }, []);
 
-    const getSaveIcons = async (id,sId) => {
-        try {
-            let res = await axios.get(`https://icongrid-backend.onrender.com/icon/findById/${id}`);
-            console.log("Response for id", id, ":", res.data.data);
-            console.log(",,,,, :", sId);
-            setSaveIcons(prevState => [...prevState, res.data.data]);
-        } catch (error) {
-            console.log("Error fetching save icons for id", id, ":", error.response.data);
-        }
-    };
-    
-    const removeSave = (id) => {
-        console.log("ID ID ID :- ", id);
-        axios.delete(`https://icongrid-backend.onrender.com/save/delete/${id}`)
+                let entitype = ["icon", "animated", "interface", "popular"]
+                Promise.all(ids.map(id => Promise.all(entitype.map(type => axios.get(`https://api-elbg.onrender.com/${type}/findById/${id}`)))))
+                    .then(responses => {
+                        const saveIconsData = responses.flat().map(response => response.data.data);
+                        setSaveIcons(saveIconsData);
+                    })
+                    .catch((error) => {
+                        console.log("Error fetching save icons:", error.response.data);
+                    });
+            })
+            .catch((error) => {
+                console.log("Error fetching save icons:", error.response.data);
+            });
+    }
+
+    useEffect(() => {
+        // Filter out null elements and store their indices
+        const indices = saveIcons.map((_, index) => index).filter(index => saveIcons[index] !== null);
+        setNonNullIndices(indices);
+    }, [saveIcons]);
+
+
+    const removeSave = (index) => {
+        const idToRemove = saveId[index];
+        console.log("id ID :- ", saveId);
+        console.log("id ID Index :- ", index);
+        axios.delete(`https://api-elbg.onrender.com/save/delete/${idToRemove}`)
             .then((res) => {
-                console.log("Save Icon Delete Susseccfully :- ", res.data.data);
+                console.log("Save Icon Delete Successfully :- ", res.data.data);
+                const updatedSaveIcons = saveIcons.filter((_, i) => i !== index);
+                setSaveIcons(updatedSaveIcons);
+                getSaveIcons()
             })
             .catch((error) => {
                 console.log(error.response.data);
             });
     };
-    
+
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -128,6 +148,28 @@ function Navbar() {
         setOpen(false);
     };
 
+    const svgDownload = () => {
+        let demo = saveIcons.filter(el => el !== null);
+
+        const zip = new JSZip();
+
+        // Add each SVG to the zip file
+        demo.forEach((el, index) => {
+            // Assuming el.icon or el.regular contains SVG string
+            zip.file(`icon_${index}.svg`, el.icon || el.regular);
+        });
+
+        // Generate the zip file
+        zip.generateAsync({ type: 'blob' })
+            .then(blob => {
+                // Save the zip file
+                saveAs(blob, 'icons.zip');
+            })
+            .catch(error => {
+                console.error('Error generating zip file:', error);
+            });
+    };
+
     return (
         <>
             <AppBar sx={{ backgroundColor: '#272727', position: 'fixed', top: 0, zIndex: '99' }}>
@@ -150,7 +192,8 @@ function Navbar() {
                                 display: 'contents'
                             }}
                         >
-                            <span style={{ letterSpacing: 'initial', fontSize: '28px' }}>Ic</span><img width={'2%'} src={favicon} alt="" srcset="" /><span style={{ marginLeft: "1px", fontSize: '28px', letterSpacing: 'initial' }}>nGrid</span>
+
+                            <Link to="/" className='center-logo' href=""><span style={{ letterSpacing: 'initial', fontSize: '28px', color: '#fff', fontWeight: '600' }}>Ic</span><img width={'25px'} src={favicon} alt="" srcset="" /><span style={{ marginLeft: "1px", fontSize: '28px', letterSpacing: 'initial', color: '#fff', fontWeight: '600' }}>nGrid</span></Link>
                             {/* <img src={logo1} width={'10%'} alt="" srcset="" /> */}
                         </Typography>
 
@@ -227,7 +270,9 @@ function Navbar() {
                         <Box sx={{ margin: '0px 20px' }}>
                             <React.Fragment>
                                 <Box sx={{ cursor: 'pointer' }}>
-                                    <Badge badgeContent={4} onClick={handleClickOpen} color="primary">
+                                    <Badge badgeContent={saveIcons
+                                        .filter(el => el !== null)
+                                        .length} onClick={handleClickOpen} color="primary">
                                         <SaveIcon color="#fff" />
                                     </Badge>
                                 </Box>
@@ -250,35 +295,36 @@ function Navbar() {
                                             color: '#000'
                                         }}
                                     >
-                                        <CloseIcon />
+                                        <CloseIcon sx={{ color: '#000' }} />
                                     </IconButton>
                                     <DialogContent dividers sx={{ backgroundColor: '#fff' }}>
                                         <div>
                                             <Grid container >
-                                                {saveIcons.map((el,index) => (
-                                                    <Grid
-                                                        key={index}
-                                                        item
-                                                        xs={2}
-                                                        sx={{
-                                                            position: 'relative',
-                                                            '&:hover': { border: '1px solid black', borderRadius: '5px' },
-                                                        }}
-                                                        onMouseEnter={() => setHoveredItem(index)}
-                                                        onMouseLeave={() => setHoveredItem(null)}
-                                                    >
-                                                        <Box sx={{ width: '50px', height: '50px' }}>
-                                                            {/* <SaveIcon color="#000" /> */}
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" dangerouslySetInnerHTML={{ __html: el.regular }}></svg>
-                                                        </Box>
-                                                        {hoveredItem === index && (
-                                                            <Box position="absolute" top={0} right={1}>
-                                                                {console.log("sdfbdgf :- ", el)}
-                                                                <MdOutlineCancel onClick={() => removeSave(el._id)} />
+                                                {saveIcons
+                                                    .filter(el => el !== null)
+                                                    .map((el, index) => (
+                                                        <Grid
+                                                            key={index}
+                                                            item
+                                                            xs={2}
+                                                            sx={{
+                                                                position: 'relative',
+                                                                '&:hover': { border: '1px solid black', borderRadius: '5px' },
+                                                            }}
+                                                            onMouseEnter={() => setHoveredItem(index)}
+                                                            onMouseLeave={() => setHoveredItem(null)}
+                                                        >
+                                                            <Box sx={{ width: '40px', height: '40px', padding: '10px' }}>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" dangerouslySetInnerHTML={{ __html: el.icon || el.regular }}></svg>
                                                             </Box>
-                                                        )}
-                                                    </Grid>
-                                                ))}
+                                                            {hoveredItem === index && (
+                                                                <Box position="absolute" top={0} right={1}>
+                                                                    <MdOutlineCancel onClick={() => removeSave(index)} />
+                                                                </Box>
+                                                            )}
+                                                        </Grid>
+                                                    ))
+                                                }
                                             </Grid>
                                         </div>
                                     </DialogContent>
@@ -289,10 +335,10 @@ function Navbar() {
                                             </Button>
                                         </Box>
                                         <Box>
-                                            <Button sx={{ backgroundColor: '#ededed', color: '#000', fontWeight: '600', fontSize: '16px', marginRight: '5px' }} autoFocus >
+                                            <Button sx={{ backgroundColor: '#ededed', color: '#000', fontWeight: '600', fontSize: '16px', marginRight: '5px' }} autoFocus onClick={svgDownload} >
                                                 SVG <IoIosDownload fontSize={'20px'} />
                                             </Button>
-                                            <Button sx={{ backgroundColor: '#ededed', color: '#000', fontWeight: '600', fontSize: '16px' }} autoFocus >
+                                            <Button sx={{ backgroundColor: '#ededed', color: '#000', fontWeight: '600', fontSize: '16px' }} autoFocus onClick={svgDownload} >
                                                 PNG <IoIosDownload fontSize={'20px'} />
                                             </Button>
                                         </Box>
@@ -332,8 +378,8 @@ function Navbar() {
                             </Menu>
                         </Box>
                     </Toolbar>
-                </Container>
-            </AppBar>
+                </Container >
+            </AppBar >
         </>
     )
 }

@@ -215,7 +215,7 @@ const Topicon = () => {
 
   const updateIcons = async (iconId) => {
     await axios
-      .put(`https://icongrid-backend.onrender.com/editIcon/update/${iconId}/000000/interface`)
+      .put(`https://api-elbg.onrender.com/editIcon/update/${iconId}/000000/interface`)
       .then((res) => {
         console.log('update Icon color :- ', res.data.data);
         getInterfaceIcon();
@@ -238,7 +238,7 @@ const Topicon = () => {
 
   const getInterfaceIcon = () => {
     axios
-      .get('https://icongrid-backend.onrender.com/interface/find')
+      .get('https://api-elbg.onrender.com/interface/find')
       .then((res) => {
         let regularIcon = res.data.data.map((icon) => icon);
         console.log('regularIcon :- ', regularIcon);
@@ -262,16 +262,16 @@ const Topicon = () => {
             edge="start"
             sx={{
               margin: 0,
-              padding: '15px 14px',
+              padding: '8px 20px',
               ...(open && { display: 'none' }),
             }}
           >
             <MenuIcon />
           </IconButton>
-          <IconButton sx={{ display: open ? 'block' : 'none', padding: '15px 14px' }} onClick={handleDrawerClose}>
+          <IconButton sx={{ display: open ? 'block' : 'none', padding: '8px 20px' }} onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
-          <ListItem sx={{ padding: '15px 14px' }}>
+          <ListItem sx={{ padding: '8px 20px' }}>
             <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
               <BsGem />
             </ListItemIcon>
@@ -306,7 +306,7 @@ const Topicon = () => {
         </List>
         <Divider />
         <List>
-          <ListItem sx={{ padding: '15px 14px' }}>
+          <ListItem sx={{ padding: '8px 20px' }}>
             <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
               <BsGem />
             </ListItemIcon>
@@ -338,7 +338,7 @@ const Topicon = () => {
         </List>
         <Divider />
         <List>
-          <ListItem sx={{ padding: '15px 14px' }}>
+          <ListItem sx={{ padding: '8px 20px' }}>
             <ListItemIcon sx={{ minWidth: '30px', color: '#fff', fontSize: '18px' }}>
               <BsGem />
             </ListItemIcon>

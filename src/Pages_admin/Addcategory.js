@@ -45,13 +45,13 @@ function Addcategory({ addCategory, updateCategory }) {
             const value = { name, tag, description };
             let response;
             if (updateCategory) {
-                response = await axios.put(`https://icongrid-backend.onrender.com/category/update/${updateCategory._id}`, value, {
+                response = await axios.put(`https://api-elbg.onrender.com/category/update/${updateCategory._id}`, value, {
                     headers: {
                         admintoken: token
                     }
                 });
             } else {
-                response = await axios.post('https://icongrid-backend.onrender.com/category/create', value, {
+                response = await axios.post('https://api-elbg.onrender.com/category/create', value, {
                     headers: {
                         admintoken: token
                     }
@@ -75,12 +75,12 @@ function Addcategory({ addCategory, updateCategory }) {
     return (
         <React.Fragment>
             {updateCategory ? (
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button variant="outlined" sx={{color:'#fff'}} onClick={handleClickOpen}>
                     Update
                 </Button>
             ) : (
-                <Button variant="outlined" onClick={handleClickOpen}>
-                    Add Icon
+                <Button variant="outlined"  onClick={handleClickOpen}>
+                    Add Category
                 </Button>
             )}
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} >

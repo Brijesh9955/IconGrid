@@ -3,16 +3,17 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, TableCo
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import axios from 'axios';
 import Popularaddicon from './Popularaddicon';
+import { AiOutlineDelete } from "react-icons/ai";
 
 const PopularIcon = () => {
     const [categories, setCategories] = useState([]);
     const [iconData, setIconData] = useState({});
-    const [card, setCard] = useState(["Hand drawn", "color fill", "Black outline", "Black Fill", "Lineal Color", "Flat"]);
+    const [card, setCard] = useState(["Handdrawn", "Color Fill", "Black outline", "Black Fill", "Lineal Color", "Flat"]);
 
     const token = localStorage.getItem('token');
 
     const updateCountIcons = () => {
-        axios.put('https://icongrid-backend.onrender.com/count/update/65e41862f553d71c874fabc5', {}, {
+        axios.put('https://api-elbg.onrender.com/count/update/66118721d874eac554e374dc', {}, {
             headers: {
                 admintoken: token
             }
@@ -30,7 +31,7 @@ const PopularIcon = () => {
     }, []);
 
     const getCategories = () => {
-        axios.get('https://icongrid-backend.onrender.com/popCategory/find')
+        axios.get('https://api-elbg.onrender.com/popCategory/find')
             .then((res) => {
                 console.log(res.data.data.map(el => el.card));
                 setCategories(res.data.data);
@@ -42,7 +43,7 @@ const PopularIcon = () => {
     };
 
     const fetchIcons = () => {
-        axios.get('https://icongrid-backend.onrender.com/popular/find')
+        axios.get('https://api-elbg.onrender.com/popular/find')
             .then((res) => {
                 setIconData(res.data.data);
                 updateCountIcons()
@@ -53,7 +54,7 @@ const PopularIcon = () => {
     };
 
     const removeIcon = (id) => {
-        axios.delete(`https://icongrid-backend.onrender.com/popular/delete/${id}`, {
+        axios.delete(`https://api-elbg.onrender.com/popular/delete/${id}`, {
             headers: { admintoken: token }
         })
             .then((res) => {
@@ -68,7 +69,7 @@ const PopularIcon = () => {
     const getCategoryIcons = (categories) => {
         const iconPromises = categories.map(category => {
             console.log("category ghjjhj :- ", category.name);
-            return axios.get(`https://icongrid-backend.onrender.com/popular/findOne/${category.name}`)
+            return axios.get(`https://api-elbg.onrender.com/popular/findOne/${category.name}`)
                 .then((res) => {
                     console.log([category.name]);
                     return { [category.name]: res.data.data };
@@ -124,7 +125,7 @@ const PopularIcon = () => {
                                                 <TableRow key={iconIndex}>
                                                     <TableCell>{icon.name}</TableCell>
                                                     <TableCell align="right">
-                                                        <Button onClick={() => removeIcon(icon._id)}>Delete</Button>
+                                                        <Button onClick={() => removeIcon(icon._id)}><AiOutlineDelete color='#fff' fontSize={'25px'}/></Button>
                                                         <Popularaddicon fetchIcons={getCategories} icon={icon} />
                                                     </TableCell>
                                                 </TableRow>

@@ -267,7 +267,7 @@ function WebBody() {
 
                     <Container maxWidth="xl" sx={{ marginTop: '35px' }}>
                         <Grid container xs={12} className='center'>
-                            <Box padding={'0px 20px'} margin={'20px 0px'}>
+                            <Box padding={'0px 8px'} margin={'20px 0px'}>
                                 <Grid sx={{ borderRadius: '20px', overflow: 'hidden', width: '269px', border: '1px solid #272727' }}>
                                     <Box sx={{ height: '86px', backgroundColor: '#FFE08A' }}>
                                     </Box>
@@ -292,7 +292,7 @@ function WebBody() {
                                     </Box>
                                 </Grid>
                             </Box >
-                            <Box padding={'0px 20px'} margin={'20px 0px'}>
+                            <Box padding={'0px 8px'} margin={'20px 0px'}>
                                 <Grid sx={{ borderRadius: '20px', overflow: 'hidden', width: '269px', border: '1px solid #272727' }}>
                                     <Box sx={{ height: '86px', backgroundColor: '#AEDBFF' }}>
                                     </Box>
@@ -303,10 +303,10 @@ function WebBody() {
 
                                     </Box>
                                     <Box className='center' fontSize={'18px'} padding={'20px'}>
-                                        Solid
+                                        Bold
                                     </Box>
                                     <Box className='center' padding={'0px 28px'} textAlign={"center"}>
-                                        "Explore our free solid icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."                                    </Box>
+                                        "Explore our free bold icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."                                    </Box>
                                     <Box className='center' sx={{ padding: '20px 28px', textAlign: 'center' }} >
                                         <Link to="/most-downloads">
                                             <Box sx={{ border: '1px solid #AEDBFF', padding: '5px 60px', borderRadius: '7px', backgroundColor: '#AEDBFF' }}>Explore</Box>
@@ -315,7 +315,7 @@ function WebBody() {
 
                                 </Grid>
                             </Box>
-                            <Box padding={'0px 20px'} margin={'20px 0px'}>
+                            <Box padding={'0px 8px'} margin={'20px 0px'}>
                                 <Grid sx={{ borderRadius: '20px', overflow: 'hidden', width: '269px', border: '1px solid #272727' }}>
                                     <Box sx={{ height: '86px', backgroundColor: '#CDBBFF' }}>
                                     </Box>
@@ -329,7 +329,7 @@ function WebBody() {
                                         Thin
                                     </Box>
                                     <Box className='center' padding={'0px 28px'} textAlign={"center"}>
-                                        "Explore our free regular icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."
+                                        "Explore our free thin icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."
                                     </Box>
                                     <Box className='center' sx={{ padding: '20px 28px', textAlign: 'center' }} >
                                         <Link to="/most-downloads">
@@ -338,7 +338,7 @@ function WebBody() {
                                     </Box>
                                 </Grid>
                             </Box>
-                            <Box padding={'0px 20px'} margin={'20px 0px'}>
+                            <Box padding={'0px 8px'} margin={'20px 0px'}>
                                 <Grid sx={{ borderRadius: '20px', overflow: 'hidden', width: '269px', border: '1px solid #272727' }}>
                                     <Box sx={{ height: '86px', backgroundColor: '#94FFDE' }}>
                                     </Box>
@@ -349,10 +349,10 @@ function WebBody() {
 
                                     </Box>
                                     <Box className='center' fontSize={'18px'} padding={'20px'}>
-                                        Stroke
+                                        Solid
                                     </Box>
                                     <Box className='center' padding={'0px 28px'} textAlign={"center"}>
-                                        "Explore our free regular icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."
+                                        "Explore our free solid icons for versatile design solutions. From simple outlines to detailed illustrations, find the perfect icon to enhance your projects effortlessly."
                                     </Box>
                                     <Box className='center' sx={{ padding: '20px 28px', textAlign: 'center' }} >
                                         <Link to="/most-downloads">
@@ -410,6 +410,7 @@ function WebBody() {
 
                 {/* responsive */}
 
+                <Box className="Hide">
                 <Box sx={{display:{xs:'none',md:'block'}, marginTop: '50px', position: 'relative' }}>
                     <Box sx={{ position: 'absolute', top: '52%', zIndex: 9 }}>
                         <img src={lineleft} alt="" srcset="" />
@@ -498,6 +499,7 @@ function WebBody() {
 
                         </Grid>
                     </Container>
+                </Box>
                 </Box>
 
                 {/* responsive */}
