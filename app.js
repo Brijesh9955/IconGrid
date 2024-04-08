@@ -22,6 +22,8 @@ var tagRouter = require('./routes/tag');
 var popularRouter = require('./routes/popular-Icon');
 var popCategotyRouter = require('./routes/pop-category');
 
+require('dotenv').config()
+
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.base_url)
